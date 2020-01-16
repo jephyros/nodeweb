@@ -1,11 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>NodeWeb서버테스트</title>
-  </head>
-  <body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#btnCallajax").on('click', function () {
+                callAjax();
+            });
+        });
+
+        function callAjax() {
+            var params = {
+                userid: $("#userid").val()
+            };
+
+
+            $.ajax({
+                url: '/api/account/del',
+                type: 'post',
+                //dataType: 'html',
+                data: params,
+                cache: false,
+                error: function (request, status, error) {
+                    ajaxErrorMsg(request);
+                    //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                },
+                success: function (res) {
+                    if (!Ajax.checkResult(res)) {
+                        return;
+                    }
+                    alertSuccess('삭제되었습니다. ');
+                    init();
+                    callList(1);
+                }
+            });
+
+        }
+
+    </script>
+</head>
+
+<body>
     <h1>NodeWeb서버테스트(정적파일테스트용)</h1>
-    
-  </body>
+    <button id="btnCallajax">호출</button>
+</body>
+
 </html>
