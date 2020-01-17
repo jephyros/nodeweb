@@ -15,27 +15,22 @@
 
         function callAjax() {
             var params = {
-                userid: $("#userid").val()
+                //userid: "cis"
             };
 
 
             $.ajax({
-                url: '/api/account/del',
+                url: 'http://localhost:5000/login',
                 type: 'post',
                 //dataType: 'html',
                 data: params,
                 cache: false,
                 error: function (request, status, error) {
-                    ajaxErrorMsg(request);
+                    //ajaxErrorMsg(request);
                     //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                 },
                 success: function (res) {
-                    if (!Ajax.checkResult(res)) {
-                        return;
-                    }
-                    alertSuccess('삭제되었습니다. ');
-                    init();
-                    callList(1);
+                    alert(res.resultdata[0].user_name);
                 }
             });
 
